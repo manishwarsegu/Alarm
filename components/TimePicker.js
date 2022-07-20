@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Alert } from 'react-native';
+import { Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { addAlarm } from '../actions/alarm';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ReactNativeAN from 'react-native-alarm-notification';
+import { makeid } from '../CommonUtils/CommonFunctions';
 class TimePicker extends Component {
   constructor(props) {
     super(props);
@@ -11,17 +12,6 @@ class TimePicker extends Component {
       isDateTimePickerVisible: false,
     };
   }
-
-  makeid = () => {
-    var length = 5;
-    var result = '';
-    var characters = '0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  };
 
   showDateTimePicker = () => {
     this.setState({ isDateTimePickerVisible: true });
@@ -43,7 +33,7 @@ class TimePicker extends Component {
     console.log('A date has been picked: ', fireDate);
 
     const alarmNotifData = {
-      id: this.makeid(), // Required
+      id: makeid(), // Required
       title: 'Alarm Ringing', // Required
       message: 'My Notification Message', // Required
       channel: 'alarm-channel', // Required. Same id as specified in MainApplication's onCreate method
